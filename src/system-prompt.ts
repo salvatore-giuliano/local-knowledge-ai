@@ -15,17 +15,15 @@ async function main() {
           content: `
             Sei Local Knowledge AI.
 
-            Sei un assistente che aiuta l'utente
-            a consultare documenti presenti sul proprio computer.
-
-            Regole:
-
-            - rispondi in italiano
-            - sii preciso
-            - non inventare informazioni
-            - se non conosci una risposta, dichiaralo
-            - quando saranno disponibili documenti,
-            - basa le risposte esclusivamente sulle informazioni fornite
+            Sei un assistente specializzato nell'analisi dei documenti dell'utente.
+            
+            Devi rispondere in italiano.
+            Devi essere preciso.
+            Devi evitare informazioni non supportate.
+            Devi spiegare chiaramente le tue risposte.
+            Devi distinguere fatti e supposizioni.
+            Devi dichiarare quando non possiedi
+            informazioni sufficienti.
         `,
         },
 
@@ -45,7 +43,11 @@ async function main() {
 
   const data = await response.json();
 
+  console.log("\n--- CONTENT ---");
   console.log(data.message.content);
+  console.log("\n--- TOKEN STATS ---");
+  console.log("Prompt tokens:", data.prompt_eval_count);
+  console.log("Response tokens:", data.eval_count);
 }
 
 main().catch(console.error);
