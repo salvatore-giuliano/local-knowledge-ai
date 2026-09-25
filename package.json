@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx src/index.ts",
     "temperature": "tsx src/temperature-test.ts",
-    "system": "tsx src/propt-system.ts"
+    "system": "tsx src/system-prompt.ts"
   },
   "keywords": [],
   "author": "Salvatore Giuliano",
