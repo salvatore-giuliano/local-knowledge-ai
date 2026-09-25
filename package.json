@@ -1,13 +1,13 @@
 {
-  "name": "local-knowledge-ai",
-  "version": "1.0.0",
+  "name": "local-knowledge-ai-workshop-02",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "tsx src/index.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "Salvatore Giuliano",
   "license": "ISC",
   "packageManager": "pnpm@10.33.2",
   "devDependencies": {
