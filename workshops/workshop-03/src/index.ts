@@ -7,22 +7,29 @@ import {
   showHistory,
 } from "./commnds.js";
 import type { Message } from "./types.js";
+import { config } from "./config.js";
 
 const rl = readline.createInterface({
     input,
     output
 });
 
+rl.on("SIGINT", () => {
+  console.log("\n\nBye!");
+  rl.close();
+  process.exit(0);
+});
+
 const messages: Message[] = [
   {
     role: "system",
-    content: "Sei un assistente AI utile e conciso. Rispondi in italiano.",
+    content: config.systemPrompt,
   },
 ];
 
 console.log(`
 Local AI
-Model: qwen3:8b
+Model: ${config.model}
 
 Type /help for commands.
 `);
@@ -76,7 +83,10 @@ while(true) {
         // 4. Mostriamo la risposta
         //console.log(`\nAI > ${answer}\n`);
     } catch (error) {
-        console.error("\nErrore durante la comunicazione con Ollama:", error);
+        if (error instanceof Error) {
+            console.error(`\nError: ${error.message}\n`);
+        } else {
+            console.error("\nUnknown error while communicating with Ollama.\n");
+        }
     }
-
 }

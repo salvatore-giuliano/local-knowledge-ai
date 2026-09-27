@@ -1,23 +1,23 @@
 import type { Message, OllamaChatChunk, OllamaChatResponse } from "./types.js";
-
-const OLLAMA_URL = "http://localhost:11434/api/chat";
-const MODEL = "qwen3:8b";
+import { config } from "./config.js";
 
 export async function chatStream(messages: Message[]): Promise<string> {
-    const response = await fetch(OLLAMA_URL, {
+    const response = await fetch(config.url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            model: MODEL,
+            model: config.model,
             messages,
             stream: true,
         }),
     });
 
     if (!response.ok) {
-        throw new Error(`Ollama error: ${response.status}`);
+        throw new Error(
+            `Ollama request failed: ${response.status} ${response.statusText}`,
+        );
     }
 
     if (!response.body) {
@@ -60,13 +60,13 @@ export async function chatStream(messages: Message[]): Promise<string> {
 }
 
 export async function chat(messages: Message[]): Promise<string> {
-    const response = await fetch(OLLAMA_URL, {
+    const response = await fetch(config.url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            model: MODEL,
+            model: config.model,
             messages,
             stream: false,
         }),
