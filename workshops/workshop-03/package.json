@@ -1,17 +1,17 @@
 {
-  "name": "local-knowledge-ai-workshop-03",
+  "name": "workshop-03",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx src/index.ts"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Salvatore Giuliano",
   "license": "ISC",
   "packageManager": "pnpm@10.33.2",
   "devDependencies": {
-    "@types/node": "^26.6.2",
+    "@types/node": "^26.6.3",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }
