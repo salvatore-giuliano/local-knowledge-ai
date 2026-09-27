@@ -6,6 +6,25 @@ type Message = {
     content: string;
 }
 
+type OllamaChatResponse = {
+    model: string;
+    created_at: string;
+    message: {
+        role: "assistant";
+        content: string;
+        thinking?: string;
+    };
+    done: boolean;
+    done_reason?: string;
+    total_duration?: number;
+    load_duration?: number;
+    prompt_eval_count?: number;
+    prompt_eval_cached_count?: number;
+    prompt_eval_duration?: number;
+    eval_count?: number;
+    eval_duration?: number;
+};
+
 
 async function chat(messages: Message[]): Promise<string> {
     const response = await fetch("http://localhost:11434/api/chat", {
@@ -24,7 +43,11 @@ async function chat(messages: Message[]): Promise<string> {
         throw new Error(`Ollama error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as OllamaChatResponse;
+
+    console.dir(data, {
+        depth: null,
+    });
 
     return data.message.content;
 }
