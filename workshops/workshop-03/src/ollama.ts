@@ -29,7 +29,6 @@ export async function chatStream(messages: Message[]): Promise<string> {
     let answer = "";
     let buffer = "";
 
-    console.log();
     process.stdout.write("AI > ");
 
     while (true) {
