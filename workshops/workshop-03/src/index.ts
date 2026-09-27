@@ -45,10 +45,6 @@ async function chat(messages: Message[]): Promise<string> {
 
     const data = (await response.json()) as OllamaChatResponse;
 
-    console.dir(data, {
-        depth: null,
-    });
-
     return data.message.content;
 }
 
@@ -73,16 +69,55 @@ const messages: Message[] = [
 
 while(true) {
     const message = await rl.question('You >: ');
-    if (message.trim() === '/exit') {
+    const trimmedMessage = message.trim();
+
+    if (!trimmedMessage) {
+        continue;
+    }
+
+    if (trimmedMessage === '/exit') {
         console.log("\nBye!");
         rl.close();
         break;
     }
 
+    if (trimmedMessage === "/help") {
+        console.log(`
+            Available commands:
+
+            /help      Show available commands
+            /history   Show conversation history
+            /clear     Clear conversation
+            /exit      Exit the application
+        `);
+
+        continue;
+    }
+
+    if (trimmedMessage === "/history") {
+        console.log("\nConversation history:");
+        for (const item of messages) {
+            if (item.role === 'system') {
+                continue;
+            }
+
+            const label = item.role === 'user' ? 'You' : 'Assistant';
+            console.log(`${label}: ${item.content}`);
+        }
+
+        continue;
+    }
+
+    if (trimmedMessage === "/clear") {
+        messages.splice(1);
+        console.log("Conversation cleared.\n");
+        continue;
+    }
+
     // 1. Salviamo PRIMA il messaggio dell'utente
     messages.push({
         role: "user",
-        content: message,
+        content: trimmedMessage,
     });
 
     try {
