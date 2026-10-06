@@ -1,9 +1,25 @@
 import { createEmbedding } from "./embedding.js";
+import { cosineSimilarity } from "./similarity.js";
 
-const text = "il cane corre nel parco";
+const textA = "il cane corre nel parco";
+const textB = "Un animale sta correndo all'aperto";
+const textC = "PostgreSQL è un database relazionale";
 
-const embedding = await createEmbedding(text);
+const embeddingA = await createEmbedding(textA);
+const embeddingB = await createEmbedding(textB);
+const embeddingC = await createEmbedding(textC);
 
-console.log("Testo:", text);
-console.log("Dimensioni:", embedding.length);
-console.log("Prime 10 dimensioni:", embedding.slice(0, 10));
+const similarityAB = cosineSimilarity(embeddingA, embeddingB);
+const similarityAC = cosineSimilarity(embeddingA, embeddingC);
+
+console.log(`"${textA}"`);
+console.log(`vs`);
+console.log(`"${textB}"`);
+console.log("Similarity:", similarityAB);
+
+console.log();
+
+console.log(`"${textA}"`);
+console.log(`vs`);
+console.log(`"${textC}"`);
+console.log("Similarity:", similarityAC);
